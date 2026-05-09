@@ -39,9 +39,9 @@ if (is_admin()) {
     if (file_exists($puc_path)) {
         require_once $puc_path;
         $update_checker = YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
-            'https://github.com/rockingfox-russ/mica-shop/',
+            'https://github.com/rockingfox-russ/mica-shop-industrial/',
             __FILE__,
-            'mica-shop'
+            'mica-shop-industrial'
         );
         $update_checker->setBranch('master');
     }
