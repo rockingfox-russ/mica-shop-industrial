@@ -49,16 +49,19 @@
 /* Product info */
 .product-info { display: flex; flex-direction: column; gap: var(--space-4); }
 .product-brand {
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  color: var(--clr-blue);
+  font-family: var(--font-condensed);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  color: var(--clr-orange);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
 }
 .product-title {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 800;
-  line-height: 1.2;
+  font-family: var(--font-condensed);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 .product-rating {
   display: flex;
@@ -88,13 +91,22 @@
   text-decoration: line-through;
 }
 .product-saving {
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--clr-success);
-  background: var(--clr-success-bg);
+  font-family: var(--font-condensed);
+  font-size: var(--font-size-base);
+  font-weight: 800;
+  color: var(--clr-white);
+  background: var(--clr-red);
   padding: 3px 10px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.04em;
 }
+.product-price-main {
+  font-family: var(--font-condensed);
+  letter-spacing: -0.01em;
+}
+.product-gallery-main { cursor: zoom-in; }
+.product-gallery-main img { transition: transform var(--transition-slow); }
+.product-gallery-main:hover img { transform: scale(1.03); }
 
 /* Quantity + ATC */
 .product-add-form { display: flex; flex-direction: column; gap: var(--space-3); }
@@ -259,11 +271,16 @@
   border-bottom: 2px solid var(--clr-border);
   gap: 0;
   overflow-x: auto;
+  background: var(--clr-surface);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 .tab-btn {
   padding: var(--space-3) var(--space-6);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
+  font-family: var(--font-condensed);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--clr-text-muted);
   background: none;
   border: none;
@@ -273,11 +290,57 @@
   white-space: nowrap;
   transition: all var(--transition-fast);
 }
-.tab-btn:hover { color: var(--clr-orange); }
-.tab-btn.active { color: var(--clr-orange); border-bottom-color: var(--clr-orange); }
+.tab-btn:hover { color: var(--clr-text); background: var(--clr-border); }
+.tab-btn.active {
+  color: var(--clr-orange);
+  border-bottom-color: var(--clr-orange);
+  background: var(--clr-white);
+  font-weight: 800;
+}
 .tab-panel { display: none; padding: var(--space-6) 0; }
 .tab-panel.active { display: block; }
 .tab-panel p { margin-bottom: var(--space-4); color: var(--clr-text-muted); line-height: 1.7; }
+
+/* Specs table — industrial data table */
+.tab-panel table.shop_attributes,
+.tab-panel .woocommerce-product-attributes {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+.tab-panel table.shop_attributes th,
+.tab-panel .woocommerce-product-attributes th {
+  width: 36%;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--clr-text-muted);
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+}
+.tab-panel table.shop_attributes td,
+.tab-panel .woocommerce-product-attributes td {
+  padding: var(--space-3) var(--space-4);
+  color: var(--clr-text);
+  font-weight: 500;
+  border-bottom: 1px solid var(--clr-border);
+}
+.tab-panel table.shop_attributes tr:nth-child(even) td,
+.tab-panel .woocommerce-product-attributes tr:nth-child(even) td,
+.tab-panel table.shop_attributes tr:nth-child(even) th,
+.tab-panel .woocommerce-product-attributes tr:nth-child(even) th {
+  background: var(--clr-bg);
+}
+.tab-panel table.shop_attributes tr:last-child th,
+.tab-panel table.shop_attributes tr:last-child td,
+.tab-panel .woocommerce-product-attributes tr:last-child th,
+.tab-panel .woocommerce-product-attributes tr:last-child td {
+  border-bottom: none;
+}
 
 /* ════════════════════════════════════
    CART

@@ -1941,8 +1941,8 @@
 /* Products grid */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(188px, 1fr));
+  gap: var(--space-3);
   margin-bottom: var(--space-4);
 }
 .products-list .product-card {
@@ -1984,6 +1984,16 @@
     justify-content: space-between;
   }
   .products-list .btn-add-to-cart { width: auto; margin-top: 0; }
+  /* Tighter grid on small phones — 2 columns always */
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+  /* Touch target audit — ensure min 44px on interactive elements */
+  .btn-add-to-cart { min-height: 44px; }
+  .qty-btn { width: 44px; height: 44px; }
+  .view-btn { width: 44px; height: 44px; }
+  .filter-mobile-btn { min-height: 44px; }
 }
 
 /* ════════════════════════════════════
