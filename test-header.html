@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mica Header Test</title>
+
+<style>
+:root {
+    --clr-green:#2e7d32;
+    --clr-orange:#ff6a00;
+    --clr-text:#222;
+    --clr-muted:#666;
+    --bg:#fff;
+}
+
+/* RESET */
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:Arial, sans-serif; }
+
+/* LAYOUT */
+.container {
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 1rem;
+}
+
+/* UTILITY BAR */
+.utility-bar {
+    background:#f5f5f5;
+    font-size:13px;
+}
+.utility-bar-inner {
+    display:flex;
+    justify-content:space-between;
+    padding:.4rem 0;
+}
+
+/* HEADER */
+.site-header {
+    position:sticky;
+    top:0;
+    background:#fff;
+    z-index:1000;
+    border-bottom:1px solid #eee;
+}
+.header-inner {
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:.75rem 0;
+}
+
+/* LOGO */
+.logo {
+    font-weight:800;
+    font-size:20px;
+}
+.logo span { color:var(--clr-orange); }
+
+/* SEARCH */
+.header-search {
+    flex:1;
+    position:relative;
+}
+.header-search input {
+    width:100%;
+    height:42px;
+    border-radius:999px;
+    border:1px solid #ddd;
+    padding:0 1rem;
+}
+
+/* ACTIONS */
+.header-actions {
+    display:flex;
+    gap:1rem;
+}
+.icon-btn {
+    cursor:pointer;
+}
+
+/* NAV BAR */
+.nav-bar {
+    border-bottom:1px solid #eee;
+    background:#fff;
+}
+.nav-inner {
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    position:relative;
+}
+
+/* SHOP BUTTON */
+.nav-primary button {
+    background:var(--clr-green);
+    color:#fff;
+    border:none;
+    padding:.6rem 1rem;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* LINKS */
+.nav-link {
+    padding:.75rem .5rem;
+    display:inline-block;
+    color:var(--clr-text);
+    text-decoration:none;
+}
+
+/* MEGA MENU */
+.mega-menu {
+    position:absolute;
+    left:0;
+    top:100%;
+    width:100%;
+    background:#fff;
+    display:none;
+    padding:2rem;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.mega-menu.open {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:2rem;
+}
+
+.mega-title {
+    font-weight:bold;
+    margin-bottom:.5rem;
+    display:block;
+}
+
+.mega-link {
+    display:block;
+    font-size:14px;
+    color:var(--clr-muted);
+    margin-bottom:.3rem;
+}
+
+/* MOBILE */
+.mobile-toggle {
+    display:none;
+}
+
+/* DRAWER */
+.drawer {
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100%;
+    background:#fff;
+    box-shadow:2px 0 10px rgba(0,0,0,0.2);
+    transition:.3s;
+    padding:1rem;
+}
+.drawer.open {
+    left:0;
+}
+
+/* DEMO CONTENT */
+main {
+    padding:2rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .header-search { display:none; }
+    .mobile-toggle { display:block; }
+    .nav-inner { display:none; }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- UTILITY BAR -->
+
+<div class="utility-bar">
+    <div class="container utility-bar-inner">
+        <span>Deliver to Johannesburg</span>
+        <span>Free Click & Collect</span>
+    </div>
+</div>
+
+<!-- HEADER -->
+
+<header class="site-header">
+    <div class="container header-inner">
+
+```
+    <div class="mobile-toggle" id="mobileToggle">☰</div>
+
+    <div class="logo">Mica<span>Online</span></div>
+
+    <div class="header-search">
+        <input type="search" placeholder="Search products...">
+    </div>
+
+    <div class="header-actions">
+        <div class="icon-btn">👤</div>
+        <div class="icon-btn">🛒</div>
+    </div>
+</div>
+```
+
+</header>
+
+<!-- NAV -->
+
+<nav class="nav-bar">
+    <div class="container nav-inner">
+
+```
+    <div class="nav-primary">
+        <button id="menuToggle">☰ Shop by Category</button>
+
+        <div class="mega-menu" id="megaMenu">
+            <div>
+                <span class="mega-title">Tools</span>
+                <a class="mega-link">Power Tools</a>
+                <a class="mega-link">Hand Tools</a>
+                <a class="mega-link">Accessories</a>
+            </div>
+            <div>
+                <span class="mega-title">Paint</span>
+                <a class="mega-link">Interior</a>
+                <a class="mega-link">Exterior</a>
+            </div>
+            <div>
+                <span class="mega-title">Garden</span>
+                <a class="mega-link">Plants</a>
+                <a class="mega-link">Soil</a>
+            </div>
+            <div>
+                <span class="mega-title">Electrical</span>
+                <a class="mega-link">Lighting</a>
+                <a class="mega-link">Cables</a>
+            </div>
+            <div>
+                <span class="mega-title">Plumbing</span>
+                <a class="mega-link">Pipes</a>
+                <a class="mega-link">Fittings</a>
+            </div>
+        </div>
+    </div>
+
+    <a class="nav-link">All Products</a>
+    <a class="nav-link">Deals</a>
+
+</div>
+```
+
+</nav>
+
+<!-- MOBILE DRAWER -->
+
+<div class="drawer" id="drawer">
+    <h3>Menu</h3>
+    <p>All Products</p>
+    <p>Tools</p>
+    <p>Paint</p>
+</div>
+
+<!-- CONTENT -->
+
+<main>
+    <h1>Header Test Page</h1>
+    <p>Scroll and interact with menu.</p>
+</main>
+
+<script>
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('megaMenu');
+
+toggle.addEventListener('click', () => {
+    menu.classList.toggle('open');
+});
+
+const mobileToggle = document.getElementById('mobileToggle');
+const drawer = document.getElementById('drawer');
+
+mobileToggle.addEventListener('click', () => {
+    drawer.classList.toggle('open');
+});
+</script>
+
+</body>
+</html>

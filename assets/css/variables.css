@@ -1,0 +1,105 @@
+/* =========================================================
+   DESIGN TOKENS — micaonline Industrial
+   ========================================================= */
+
+:root {
+
+  /* ── Brand colours ───────────────────────────────────── */
+  --clr-orange:        #E8590C;
+  --clr-orange-dark:   #C04A08;
+  --clr-orange-light:  #FDE8DC;
+
+  --clr-blue:          #1A4E8A;
+  --clr-blue-dark:     #103263;
+  --clr-blue-light:    #D6E6F7;
+
+  --clr-yellow:        #F5B800;
+  --clr-yellow-dark:   #C49200;
+  --clr-yellow-light:  #FEF6D6;
+
+  --clr-red:           #C0392B;
+  --clr-red-dark:      #962D22;
+  --clr-red-light:     #FAE0DE;
+
+  /* ── Chrome (header / nav / footer) ─────────────────── */
+  --clr-header-bg:     #1C2128;
+  --clr-nav-bg:        #0D1117;
+  --clr-footer-bg:     #0D1117;
+  --clr-chrome-border: rgba(255,255,255,0.08);
+  --clr-chrome-text:   rgba(255,255,255,0.90);
+  --clr-chrome-muted:  rgba(255,255,255,0.55);
+
+  /* ── Page surfaces ───────────────────────────────────── */
+  --clr-white:         #FFFFFF;
+  --clr-bg:            #F0EFED;
+  --clr-surface:       #E4E3DF;
+  --clr-border:        #CCCAC4;
+  --clr-text:          #0D1117;
+  --clr-text-muted:    #4A5568;
+  --clr-text-light:    #8A9099;
+
+  /* ── Semantic ────────────────────────────────────────── */
+  --clr-success:       #1A7A4A;
+  --clr-success-bg:    #D4EDDA;
+  --clr-error:         #C0392B;
+  --clr-error-bg:      #FAE0DE;
+  --clr-warning:       #856404;
+  --clr-warning-bg:    #FFF3CD;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-sans:         'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:      'Barlow Condensed', 'Inter', sans-serif;
+  --font-condensed:    'Barlow Condensed', sans-serif;
+
+  /* ── Font scale ──────────────────────────────────────── */
+  --font-size-xs:      0.75rem;
+  --font-size-sm:      0.875rem;
+  --font-size-base:    1rem;
+  --font-size-lg:      1.125rem;
+  --font-size-xl:      1.25rem;
+  --font-size-2xl:     1.5rem;
+  --font-size-3xl:     1.875rem;
+  --font-size-4xl:     2.25rem;
+
+  /* ── Spacing (8px base grid) ─────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ── Radii ───────────────────────────────────────────── */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────────── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.07);
+  --shadow-md:  0 4px 12px rgba(0,0,0,.13), 0 2px 4px rgba(0,0,0,.08);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,.16), 0 4px 8px rgba(0,0,0,.08);
+
+  /* ── Layout ──────────────────────────────────────────── */
+  --header-height:     72px;
+  --sidebar-width:     272px;
+  --container-max:     1320px;
+  --container-padding: var(--space-6);
+
+  /* ── Transitions ─────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* ── Z-index ─────────────────────────────────────────── */
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+}
