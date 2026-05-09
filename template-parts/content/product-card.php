@@ -111,14 +111,22 @@ if ( $is_paint ) {
         <?php
         $cats = get_the_terms( $pid, 'product_cat' );
         $cat  = $cats && ! is_wp_error( $cats ) ? array_shift( $cats ) : null;
+        $sku  = $product->get_sku();
+        $brand = $product->get_attribute( 'brand' ) ?: $product->get_attribute( 'pa_brand' );
         ?>
-        <?php if ( $cat ) : ?>
+        <?php if ( $brand ) : ?>
+            <span class="product-card-brand"><?php echo esc_html( $brand ); ?></span>
+        <?php elseif ( $cat ) : ?>
             <span class="product-card-cat"><?php echo esc_html( $cat->name ); ?></span>
         <?php endif; ?>
 
         <h3 class="product-card-title">
             <a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
         </h3>
+
+        <?php if ( $sku ) : ?>
+            <span class="product-card-sku">SKU: <?php echo esc_html( $sku ); ?></span>
+        <?php endif; ?>
 
         <span class="product-card-stock <?php echo esc_attr( $stock['class'] ); ?>">
             <?php echo esc_html( $stock['label'] ); ?>
@@ -135,9 +143,18 @@ if ( $is_paint ) {
     <!-- Footer: price + ATC -->
     <div class="product-card-footer">
         <div class="product-card-price">
-            <?php if ( $product->is_on_sale() ) : ?>
-                <span class="price-current"><?php echo wc_price( $product->get_sale_price() ); ?></span>
-                <span class="price-original"><?php echo wc_price( $product->get_regular_price() ); ?></span>
+            <?php if ( $product->is_on_sale() ) :
+                $regular = (float) $product->get_regular_price();
+                $sale    = (float) $product->get_sale_price();
+                $saving  = $regular > 0 ? round( ( $regular - $sale ) / $regular * 100 ) : 0;
+            ?>
+                <span class="price-current"><?php echo wc_price( $sale ); ?></span>
+                <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="price-original"><?php echo wc_price( $regular ); ?></span>
+                    <?php if ( $saving > 0 ) : ?>
+                        <span class="price-saving">-<?php echo $saving; ?>%</span>
+                    <?php endif; ?>
+                </div>
             <?php else : ?>
                 <span class="price-current"><?php echo $price_html; ?></span>
             <?php endif; ?>
