@@ -41,12 +41,58 @@ if ( ! empty( $_GET['filter_local_attr'] ) && is_array( $_GET['filter_local_attr
 }
 ?>
 
+<!-- B's editorial category banner (outside container, full bleed) -->
+<div class="listing-banner-b">
+    <div class="container">
+        <?php mica_breadcrumbs(); ?>
+        <div class="listing-banner-inner">
+            <h1 class="listing-title-b">
+                <?php
+                if ( $current_cat ) {
+                    $parts = preg_split('/\b(and|&)\b/i', $current_cat->name, 2);
+                    if ( count( $parts ) === 2 ) {
+                        echo esc_html( trim( $parts[0] ) ) . ' <em class="serif-italic">&amp; ' . esc_html( trim( $parts[1] ) ) . '</em>';
+                    } else {
+                        echo esc_html( $current_cat->name );
+                    }
+                } else {
+                    echo 'All <em class="serif-italic">Products.</em>';
+                }
+                ?>
+            </h1>
+            <?php if ( $current_cat && $current_cat->description ) : ?>
+            <p class="listing-desc-b"><?php echo esc_html( $current_cat->description ); ?></p>
+            <?php else : ?>
+            <p class="listing-desc-b">Pick a category first — the rest gets simpler from there. All stocked locally, dispatched daily.</p>
+            <?php endif; ?>
+        </div>
+
+        <!-- Subcategory tabs -->
+        <?php
+        $subcats = get_terms( [
+            'taxonomy'   => 'product_cat',
+            'parent'     => $scope_id,
+            'hide_empty' => true,
+            'number'     => 10,
+        ] );
+        if ( ! empty( $subcats ) && ! is_wp_error( $subcats ) ) : ?>
+        <div class="subcategory-tabs">
+            <a href="<?php echo esc_url( $current_cat ? get_term_link( $current_cat ) : get_permalink( wc_get_page_id('shop') ) ); ?>"
+               class="subcategory-tab active">
+                All <span class="subcategory-tab-count">· <?php global $wp_query; echo (int)$wp_query->found_posts; ?></span>
+            </a>
+            <?php foreach ( $subcats as $sub ) : ?>
+            <a href="<?php echo esc_url( get_term_link( $sub ) ); ?>" class="subcategory-tab">
+                <?php echo esc_html( $sub->name ); ?>
+                <span class="subcategory-tab-count">· <?php echo mica_cat_product_count( $sub->term_id ); ?></span>
+            </a>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+
 <div class="container">
-
-    <?php mica_breadcrumbs(); ?>
-
-    <!-- Active filters display (above toolbar) -->
-    <?php mica_part( 'shop/active-filters', [ 'active_filters' => $active_filters ] ); ?>
 
     <div class="shop-layout">
 
@@ -59,30 +105,24 @@ if ( ! empty( $_GET['filter_local_attr'] ) && is_array( $_GET['filter_local_attr
         <!-- Main content -->
         <div class="shop-main" id="shop-main">
 
-            <!-- Page title + toolbar -->
-            <div class="section-header mb-4">
-                <div>
-                    <h1 class="section-title">
-                        <?php
-                        if ( $current_cat ) {
-                            echo esc_html( $current_cat->name );
-                        } else {
-                            esc_html_e( 'All Products', 'micaonline' );
-                        }
-                        ?>
-                    </h1>
-                    <?php if ( $current_cat && $current_cat->description ) : ?>
-                        <p class="text-muted text-sm" style="margin-top:.25rem;">
-                            <?php echo esc_html( $current_cat->description ); ?>
-                        </p>
-                    <?php endif; ?>
-                </div>
+            <!-- B's horizontal filter strip -->
+            <div class="filter-strip-b">
+                <span class="filter-strip-label">Filter:</span>
+
+                <?php mica_part( 'shop/active-filters', [ 'active_filters' => $active_filters ] ); ?>
 
                 <!-- Mobile filter button -->
                 <button class="filter-mobile-btn" id="filter-mobile-btn" aria-expanded="false">
                     <?php echo mica_icon( 'filter' ); ?>
                     <?php esc_html_e( 'Filter', 'micaonline' ); ?>
                 </button>
+
+                <div class="filter-results-b">
+                    <span class="filter-results-count" id="result-count">
+                        <?php global $wp_query; ?>
+                        <strong><?php echo (int) $wp_query->found_posts; ?></strong> results
+                    </span>
+                </div>
             </div>
 
             <!-- Toolbar: result count + sort + view toggle -->

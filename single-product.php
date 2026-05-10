@@ -100,19 +100,24 @@ while ( have_posts() ) :
             </div>
             <?php endif; ?>
 
-            <!-- Price -->
-            <div class="product-price-block">
-                <?php if ( $product->is_on_sale() ) :
-                    $pct = $product->get_regular_price() > 0
-                        ? round( ( ( $product->get_regular_price() - $product->get_sale_price() ) / $product->get_regular_price() ) * 100 )
-                        : 0;
-                ?>
-                    <span class="product-price-main"><?php echo wc_price( $product->get_sale_price() ); ?></span>
-                    <span class="product-price-old"><?php echo wc_price( $product->get_regular_price() ); ?></span>
-                    <span class="product-saving">Save <?php echo $pct; ?>%</span>
-                <?php else : ?>
-                    <span class="product-price-main"><?php echo $product->get_price_html(); ?></span>
-                <?php endif; ?>
+            <!-- Price — B's white block with strong border -->
+            <div class="product-price-block-b">
+                <div class="product-price-b-row">
+                    <?php if ( $product->is_on_sale() ) :
+                        $pct = $product->get_regular_price() > 0
+                            ? round( ( ( $product->get_regular_price() - $product->get_sale_price() ) / $product->get_regular_price() ) * 100 )
+                            : 0;
+                    ?>
+                        <span class="product-price-b-main"><?php echo wc_price( $product->get_sale_price() ); ?></span>
+                        <span class="product-price-b-was"><?php echo wc_price( $product->get_regular_price() ); ?></span>
+                        <span class="product-price-b-save">You save <?php echo $pct; ?>%</span>
+                    <?php else : ?>
+                        <span class="product-price-b-main"><?php echo $product->get_price_html(); ?></span>
+                    <?php endif; ?>
+                </div>
+                <div class="product-price-b-sub">
+                    Or 4 interest-free payments with PayJustNow
+                </div>
             </div>
 
             <!-- Paint colour chip -->
@@ -165,6 +170,31 @@ while ( have_posts() ) :
                     <?php esc_html_e( 'Currently out of stock.', 'micaonline' ); ?>
                 </div>
             <?php endif; ?>
+
+            <!-- Fulfilment chips — B style -->
+            <div class="fulfilment-grid-b">
+                <div class="fulfilment-chip-b active">
+                    <div class="fulfilment-chip-top">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                        <span class="fulfilment-chip-price">FREE</span>
+                    </div>
+                    <span class="fulfilment-chip-label">Collect · 30 min</span>
+                </div>
+                <div class="fulfilment-chip-b">
+                    <div class="fulfilment-chip-top">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        <span class="fulfilment-chip-price">R 49</span>
+                    </div>
+                    <span class="fulfilment-chip-label">Same-day · bay</span>
+                </div>
+                <div class="fulfilment-chip-b">
+                    <div class="fulfilment-chip-top">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+                        <span class="fulfilment-chip-price">R 89</span>
+                    </div>
+                    <span class="fulfilment-chip-label">Courier · 2–3 days</span>
+                </div>
+            </div>
 
             <!-- Hidden inputs used by stock checker + variation sync JS -->
             <input type="hidden" id="mico-product-id"      value="<?php echo esc_attr( $product_id ); ?>">
@@ -279,23 +309,93 @@ while ( have_posts() ) :
         <?php endif; ?>
     </div>
 
+    <!-- B's Spec Sheet (full width, outside product grid) -->
+    <?php
+    $attributes = $product->get_attributes();
+    $visible_attrs = array_filter( $attributes, fn( $a ) => $a->get_visible() );
+    if ( ! empty( $visible_attrs ) ) :
+        $half = ceil( count( $visible_attrs ) / 2 );
+        $attr_chunks = array_chunk( array_values( $visible_attrs ), $half );
+    ?>
+    <div class="spec-sheet-b">
+        <div class="container">
+            <div class="spec-sheet-grid">
+                <div class="spec-sheet-intro">
+                    <div class="section-eyebrow">Specs</div>
+                    <h2>The numbers, plain<br><em class="serif-italic">and clear.</em></h2>
+                    <p>Direct from the manufacturer's data — we don't fudge specs to make a sale.</p>
+                </div>
+                <?php foreach ( $attr_chunks as $chunk ) : ?>
+                <div>
+                    <?php foreach ( $chunk as $attribute ) :
+                        $values = $attribute->is_taxonomy()
+                            ? wp_get_post_terms( $product_id, $attribute->get_name(), [ 'fields' => 'names' ] )
+                            : $attribute->get_options();
+                    ?>
+                    <div class="spec-row-b">
+                        <span><?php echo esc_html( wc_attribute_label( $attribute->get_name() ) ); ?></span>
+                        <span><?php echo esc_html( is_array( $values ) ? implode( ', ', $values ) : $values ); ?></span>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- B's Description + "From the team" quote -->
+    <?php
+    $description = $product->get_description();
+    $short_desc  = $product->get_short_description();
+    if ( $description || $short_desc ) :
+    ?>
+    <div class="container">
+        <div class="product-desc-grid-b">
+            <div class="product-desc-b">
+                <div class="section-eyebrow">Description</div>
+                <h2>The one our team<br><em class="serif-italic">reaches for first.</em></h2>
+                <?php if ( $description ) : ?>
+                    <?php echo wpautop( wp_kses_post( $description ) ); ?>
+                <?php elseif ( $short_desc ) : ?>
+                    <?php echo wpautop( wp_kses_post( $short_desc ) ); ?>
+                <?php endif; ?>
+            </div>
+            <div class="from-the-team-b">
+                <div class="from-the-team-eyebrow">From the team</div>
+                <p class="from-the-team-quote">
+                    "Stocked because it works — not because of the margin. Every product in this store has been used, tested or recommended by someone on our shop floor."
+                </p>
+                <div class="from-the-team-author">
+                    <div class="from-the-team-avatar">M</div>
+                    <div>
+                        <span class="from-the-team-name">Your Mica Team</span>
+                        <span class="from-the-team-role">In-store &amp; online · Here to help</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <!-- Related -->
     <?php
     $related_ids = wc_get_related_products( $product_id, 4 );
     $related     = array_filter( array_map( 'wc_get_product', $related_ids ) );
     if ( ! empty( $related ) ) :
     ?>
-    <div style="margin-top:var(--space-10);padding-top:var(--space-8);border-top:1px solid var(--clr-border);">
-        <div class="section-header mb-6">
-            <h2 class="section-title"><?php esc_html_e( 'You might also like', 'micaonline' ); ?></h2>
+    <div class="container" style="margin-top:var(--space-10);margin-bottom:var(--space-10);">
+        <div class="section-head-b">
+            <div>
+                <div class="section-eyebrow">You might also like</div>
+                <h2 class="section-title-b">More from <em class="serif-italic">the shelves.</em></h2>
+            </div>
         </div>
         <div class="products-grid">
             <?php foreach ( $related as $rp ) mica_part( 'content/product-card', [ 'product' => $rp ] ); ?>
         </div>
     </div>
     <?php endif; ?>
-
-</div><!-- .container -->
 
 <!-- ════════════════════════════════
      IN-STORE STOCK MODAL

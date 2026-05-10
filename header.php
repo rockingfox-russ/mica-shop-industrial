@@ -17,44 +17,49 @@
 
 <div class="site" id="page">
 
-    <!-- Utility Bar -->
-    <!-- <div class="utility-bar">
-        <div class="container">
-            <div class="utility-bar-inner">
-                <div class="utility-left">
-                    <span>🇿🇦 Free click & collect at all Mica stores</span>
-                    <span class="separator">|</span>
-                    <span>🚚 Free delivery on orders over R1000</span>
-                </div>
-                <div class="utility-right">
-                    <?php if (is_user_logged_in()) : ?>
-                        <a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>">My Account</a>
-                    <?php else : ?>
-                        <a href="<?php echo esc_url(wp_login_url()); ?>">Sign in</a>
-                        <a href="<?php echo esc_url(wp_registration_url()); ?>">Register</a>
+    <!-- Utility Bar — B's warm paper mono style -->
+    <div class="utility-bar-b">
+        <div class="utility-bar-b-inner">
+            <div class="utility-bar-b-left">
+                <span>
+                    <span class="utility-status-dot"></span>
+                    <?php echo esc_html( get_theme_mod( 'mica_local_name', 'Mica' ) ); ?>
+                    <?php if ( get_theme_mod( 'mica_store_hours' ) ) : ?>
+                        · <?php echo esc_html( get_theme_mod( 'mica_store_hours', 'Open until 17:30' ) ); ?>
                     <?php endif; ?>
-                    <a href="<?php echo esc_url(get_permalink(wc_get_page_id('cart'))); ?>">Cart</a>
-                </div>
+                </span>
+                <?php if ( get_theme_mod( 'mica_store_phone' ) ) : ?>
+                <span><?php echo esc_html( get_theme_mod( 'mica_store_phone' ) ); ?></span>
+                <?php endif; ?>
+            </div>
+            <div class="utility-bar-b-right">
+                <span>Trade counter</span>
+                <span>Tool hire</span>
+                <span>Workshops</span>
+                <?php $find_store = get_page_by_path( 'find-a-store' ); ?>
+                <a href="<?php echo esc_url( $find_store ? get_permalink( $find_store ) : '#' ); ?>" style="color:var(--clr-text-muted);text-decoration:none;">Find a store →</a>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- Main Header -->
     <header class="site-header" id="masthead">
         <div class="container">
             <div class="header-wrapper">
-                <!-- Logo -->
-                <?php 
+                <!-- Logo + Est. tagline -->
+                <?php
                 $custom_logo_id = get_theme_mod('custom_logo');
-                if ($custom_logo_id) : 
+                if ($custom_logo_id) :
                     $logo_image = wp_get_attachment_image($custom_logo_id, 'full', false, array('class' => 'logo-img'));
                     ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo" aria-label="Mica Online Home">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo" aria-label="Mica Online Home" style="display:flex;align-items:center;">
                         <?php echo $logo_image; ?>
+                        <div class="logo-tagline">Est. 1988<br>Hardware co.</div>
                     </a>
                 <?php else : ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo" style="display:flex;align-items:center;">
                         <span class="logo-text">Mica<span class="logo-accent">Online</span></span>
+                        <div class="logo-tagline">Est. 1988<br>Hardware co.</div>
                     </a>
                 <?php endif; ?>
 
@@ -87,6 +92,7 @@
                                value="<?php echo esc_attr( get_search_query() ); ?>"
                                autocomplete="off">
 
+                        <span class="search-hint">Press / to search</span>
                         <button type="submit" class="header-search-btn" aria-label="Search">
                             <?php echo mica_icon( 'search' ); ?>
                         </button>
@@ -150,6 +156,7 @@
                     }
                     ?>
                 </nav>
+                <span class="nav-specials">● Specials end Sun</span>
             </div>
         </div>
     </nav>
