@@ -1,5 +1,6 @@
 /* =========================================================
-   DESIGN TOKENS — micaonline Industrial
+   DESIGN TOKENS — micaonline Workbench × Brightside Hero
+   Direction B body + Direction A hero treatment
    ========================================================= */
 
 :root {
@@ -9,47 +10,48 @@
   --clr-orange-dark:   #C04A08;
   --clr-orange-light:  #FDE8DC;
 
-  --clr-blue:          #1A4E8A;
-  --clr-blue-dark:     #103263;
-  --clr-blue-light:    #D6E6F7;
-
-  --clr-yellow:        #F5B800;
+  --clr-yellow:        #E8B007;
   --clr-yellow-dark:   #C49200;
   --clr-yellow-light:  #FEF6D6;
 
-  --clr-red:           #C0392B;
-  --clr-red-dark:      #962D22;
+  --clr-navy:          #0E2240;
+  --clr-navy-deep:     #06122A;
+
+  --clr-red:           #B33A1A;
+  --clr-red-dark:      #8A2D14;
   --clr-red-light:     #FAE0DE;
 
   /* ── Chrome (header / nav / footer) ─────────────────── */
-  --clr-header-bg:     #0E2144;
-  --clr-nav-bg:        #103263;
-  --clr-footer-bg:     #0A1A35;
+  --clr-header-bg:     #0E2240;
+  --clr-nav-bg:        #0E2240;
+  --clr-footer-bg:     #06122A;
   --clr-chrome-border: rgba(255,255,255,0.10);
   --clr-chrome-text:   rgba(255,255,255,0.92);
   --clr-chrome-muted:  rgba(255,255,255,0.55);
 
-  /* ── Page surfaces ───────────────────────────────────── */
+  /* ── Page surfaces — Direction B warm paper ─────────── */
   --clr-white:         #FFFFFF;
-  --clr-bg:            #F0EFED;
-  --clr-surface:       #E4E3DF;
-  --clr-border:        #CCCAC4;
-  --clr-text:          #0D1117;
-  --clr-text-muted:    #4A5568;
-  --clr-text-light:    #8A9099;
+  --clr-bg:            #F2EDE2;
+  --clr-surface:       #E9E2D1;
+  --clr-border:        #CFC6B0;
+  --clr-text:          #171410;
+  --clr-text-muted:    #56504A;
+  --clr-text-light:    #8A8278;
 
   /* ── Semantic ────────────────────────────────────────── */
   --clr-success:       #1A7A4A;
   --clr-success-bg:    #D4EDDA;
-  --clr-error:         #C0392B;
+  --clr-error:         #B33A1A;
   --clr-error-bg:      #FAE0DE;
   --clr-warning:       #856404;
   --clr-warning-bg:    #FFF3CD;
 
-  /* ── Typography ──────────────────────────────────────── */
-  --font-sans:         'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display:      'Barlow Condensed', 'Inter', sans-serif;
-  --font-condensed:    'Barlow Condensed', sans-serif;
+  /* ── Typography — Direction B font stack ────────────── */
+  --font-sans:         'Archivo', system-ui, sans-serif;
+  --font-display:      'Archivo', system-ui, sans-serif;
+  --font-condensed:    'Archivo', system-ui, sans-serif;
+  --font-mono:         'JetBrains Mono', ui-monospace, monospace;
+  --font-serif:        'Instrument Serif', Georgia, serif;
 
   /* ── Font scale ──────────────────────────────────────── */
   --font-size-xs:      0.75rem;
@@ -73,14 +75,14 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* ── Radii — engineering-grade, angular ─────────────── */
+  /* ── Radii — angular, engineering-grade ─────────────── */
   --radius-sm:   2px;
   --radius-md:   2px;
   --radius-lg:   4px;
   --radius-xl:   4px;
   --radius-full: 9999px;
 
-  /* ── Shadows — minimal; cards use hairline borders ───── */
+  /* ── Shadows — hairline-first ────────────────────────── */
   --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
   --shadow-md:  0 0 5px rgba(0,0,0,.15);
   --shadow-lg:  0 4px 16px rgba(0,0,0,.18);

@@ -16,7 +16,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
     // Fonts (self-hosted or Google — swap URL as needed)
     wp_enqueue_style( 'mica-fonts',
-        'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap',
         [], null
     );
 
