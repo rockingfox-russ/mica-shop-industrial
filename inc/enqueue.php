@@ -27,6 +27,7 @@ add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_style( 'mica-pages', mica_URI . '/assets/css/pages.css',[ 'mica-components' ], $v );
     wp_enqueue_style( 'mica-shop',       mica_URI . '/assets/css/shop.css',      [ 'mica-components' ], $v );
     wp_enqueue_style( 'mica-paint',      mica_URI . '/assets/css/paint-stock.css', [ 'mica-shop' ], $v );
+    wp_enqueue_style( 'mica-b-elements', mica_URI . '/assets/css/b-elements.css',  [ 'mica-components' ], $v );
 
     // Main JS
     wp_enqueue_script( 'mica-theme',       mica_URI . '/assets/js/theme.js',       [], $v, true );

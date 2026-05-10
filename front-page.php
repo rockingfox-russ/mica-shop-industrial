@@ -33,24 +33,24 @@ $sale_query = new WP_Query( $sale_args );
             <div class="hero-main-card">
                 <div class="hero-main-inner">
                     <div class="hero-main-top">
-                        <span class="hero-chip-sale">Save up to 35%</span>
-                        <span class="hero-eyebrow-mono">Power Tools Week</span>
+                        <span class="hero-chip-sale"><?php echo esc_html( get_theme_mod( 'mica_hero_sale_pct', 'Save up to 35%' ) ); ?></span>
+                        <span class="hero-eyebrow-mono"><?php echo esc_html( get_theme_mod( 'mica_hero_eyebrow', 'Power Tools Week' ) ); ?></span>
                     </div>
                     <div class="hero-main-copy">
                         <h1 class="hero-headline">
-                            Built for<br>the next<br>
-                            <em class="hero-headline-accent">weekend job.</em>
+                            <?php echo esc_html( get_theme_mod( 'mica_hero_headline', 'Built for the next' ) ); ?><br>
+                            <em class="hero-headline-accent"><?php echo esc_html( get_theme_mod( 'mica_hero_accent', 'weekend job.' ) ); ?></em>
                         </h1>
                         <p class="hero-sub">
-                            Tools &amp; kits from DeWalt, Bosch &amp; Makita — handpicked by your local Mica team. Try before you buy at the trade counter.
+                            <?php echo esc_html( get_theme_mod( 'mica_hero_sub', 'Tools & kits from DeWalt, Bosch & Makita — handpicked by your local Mica team.' ) ); ?>
                         </p>
                         <div class="hero-ctas">
                             <a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', get_permalink( wc_get_page_id( 'shop' ) ) ) ); ?>" class="hero-btn-primary">
-                                Shop the deals
+                                <?php echo esc_html( get_theme_mod( 'mica_hero_cta1', 'Shop the deals' ) ); ?>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                             </a>
                             <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="hero-btn-ghost">
-                                All products
+                                <?php echo esc_html( get_theme_mod( 'mica_hero_cta2', 'All products' ) ); ?>
                             </a>
                         </div>
                     </div>
@@ -98,9 +98,9 @@ $sale_query = new WP_Query( $sale_args );
                 <!-- Trade card -->
                 <div class="hero-trade-card">
                     <span class="hero-chip-trade">Trade Counter</span>
-                    <h3 class="hero-trade-title">Open a trade account — 30-day terms, monthly statement.</h3>
+                    <h3 class="hero-trade-title"><?php echo esc_html( get_theme_mod( 'mica_trade_title', 'Open a trade account — 30-day terms, monthly statement.' ) ); ?></h3>
                     <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>" class="hero-trade-link">
-                        Apply in 5 min →
+                        <?php echo esc_html( get_theme_mod( 'mica_trade_cta', 'Apply in 5 min →' ) ); ?>
                     </a>
                 </div>
 
@@ -116,32 +116,48 @@ $sale_query = new WP_Query( $sale_args );
         </div>
     </section>
 
-    <!-- ③ Shop by Department -->
+    <!-- ③ Shop by Department — B's aisle tiles -->
     <?php if ( ! empty( $top_cats ) ) : ?>
-    <section id="departments" style="margin-bottom:var(--space-10);">
-        <div class="section-header">
-            <h2 class="section-title">Shop by Department</h2>
-            <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="section-link">
-                All departments →
+    <section id="departments" class="aisle-section">
+        <div class="section-head-b">
+            <div>
+                <div class="section-eyebrow">01 · Aisles</div>
+                <h2 class="section-title-b">Browse the <em class="serif-italic">aisles.</em></h2>
+                <p class="section-sub"><?php echo count( $top_cats ); ?> departments, <?php echo number_format( array_sum( array_column( $top_cats, 'count' ) ) ); ?>+ SKUs — all on one site.</p>
+            </div>
+            <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="section-link-b">
+                See all departments <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
         </div>
-        <div class="category-grid">
-            <?php foreach ( $top_cats as $cat ) :
-                $thumb_id  = get_term_meta( $cat->term_id, 'thumbnail_id', true );
-                $thumb_url = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'thumbnail' ) : '';
+        <?php
+        $aisle_swatches = [ '#E8590C','#0B2E6B','#C8102E','#1B5E20','#2E7D32','#E8B007','#1565C0','#5D4037' ];
+        $aisle_sizes    = [
+            'grid-column:span 3;grid-row:span 2',
+            'grid-column:span 3;grid-row:span 1',
+            'grid-column:span 2;grid-row:span 1',
+            'grid-column:span 2;grid-row:span 2',
+            'grid-column:span 2;grid-row:span 1',
+            'grid-column:span 2;grid-row:span 1',
+            'grid-column:span 2;grid-row:span 1',
+            'grid-column:span 2;grid-row:span 1',
+        ];
+        ?>
+        <div class="aisle-grid">
+            <?php foreach ( $top_cats as $i => $cat ) :
+                $swatch = $aisle_swatches[ $i % count( $aisle_swatches ) ];
+                $size   = $aisle_sizes[ $i ] ?? 'grid-column:span 2;grid-row:span 1';
+                $count  = mica_cat_product_count( $cat->term_id );
+                $num    = str_pad( $i + 1, 2, '0', STR_PAD_LEFT );
+                $big    = $i === 0;
             ?>
-            <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="category-card">
-                <div class="category-card-icon">
-                    <?php if ( $thumb_url ) : ?>
-                        <img src="<?php echo esc_url( $thumb_url ); ?>"
-                             alt="<?php echo esc_attr( $cat->name ); ?>"
-                             style="width:100%;height:100%;object-fit:contain;padding:8px;">
-                    <?php else : ?>
-                        <?php echo mica_icon( 'store', '' ); ?>
-                    <?php endif; ?>
+            <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>"
+               class="aisle-tile"
+               style="background:<?php echo esc_attr( $swatch ); ?>;<?php echo $size; ?>">
+                <div class="aisle-tile-top">
+                    <span class="aisle-num">Aisle <?php echo $num; ?></span>
+                    <span class="aisle-count"><?php echo number_format( $count ); ?> items →</span>
                 </div>
-                <span class="category-card-name"><?php echo esc_html( $cat->name ); ?></span>
-                <span class="category-card-count"><?php echo (int) $cat->count; ?> products</span>
+                <h3 class="aisle-name<?php echo $big ? ' aisle-name-big' : ''; ?>"><?php echo esc_html( $cat->name ); ?></h3>
             </a>
             <?php endforeach; ?>
         </div>
@@ -150,14 +166,15 @@ $sale_query = new WP_Query( $sale_args );
 
     <!-- ④ Weekly Specials / On Sale -->
     <?php if ( $sale_query->have_posts() ) : ?>
-    <section style="margin-bottom:var(--space-10);">
-        <div class="section-header">
-            <div style="display:flex;align-items:center;gap:var(--space-3);">
-                <h2 class="section-title">Weekly Specials</h2>
-                <span style="background:var(--clr-red);color:#fff;font-family:var(--font-condensed);font-size:var(--font-size-xs);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 10px;border-radius:var(--radius-sm);">SALE</span>
+    <section class="b-section">
+        <div class="section-head-b">
+            <div>
+                <div class="section-eyebrow">02 · This week</div>
+                <h2 class="section-title-b">Just in <em class="serif-italic">on the deals.</em></h2>
             </div>
-            <a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', get_permalink( wc_get_page_id( 'shop' ) ) ) ); ?>"
-               class="section-link">All deals →</a>
+            <a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', get_permalink( wc_get_page_id( 'shop' ) ) ) ); ?>" class="section-link-b">
+                View all deals <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
         </div>
         <div class="products-grid">
             <?php while ( $sale_query->have_posts() ) :
@@ -172,11 +189,15 @@ $sale_query = new WP_Query( $sale_args );
 
     <!-- ⑤ Top Sellers -->
     <?php if ( $popular_query->have_posts() ) : ?>
-    <section style="margin-bottom:var(--space-10);">
-        <div class="section-header">
-            <h2 class="section-title">Top Sellers</h2>
-            <a href="<?php echo esc_url( add_query_arg( 'orderby', 'popularity', get_permalink( wc_get_page_id( 'shop' ) ) ) ); ?>"
-               class="section-link">View all →</a>
+    <section class="b-section">
+        <div class="section-head-b">
+            <div>
+                <div class="section-eyebrow">03 · Best sellers</div>
+                <h2 class="section-title-b">What's flying <em class="serif-italic">off the shelves.</em></h2>
+            </div>
+            <a href="<?php echo esc_url( add_query_arg( 'orderby', 'popularity', get_permalink( wc_get_page_id( 'shop' ) ) ) ); ?>" class="section-link-b">
+                View all <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
         </div>
         <div class="products-grid">
             <?php while ( $popular_query->have_posts() ) :
@@ -189,96 +210,81 @@ $sale_query = new WP_Query( $sale_args );
     </section>
     <?php endif; ?>
 
-    <!-- ⑥ Featured Brands -->
-    <section style="margin-bottom:var(--space-10);">
-        <div class="section-header">
-            <h2 class="section-title">Trusted Brands</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--space-3);">
-            <?php
-            $brands = [ 'Stanley', 'Bosch', 'Dulux', 'Alcolin', 'Makita', 'DeWalt', 'Cobra', 'Rust-Oleum' ];
-            foreach ( $brands as $brand ) :
-                $brand_url = add_query_arg( 's', urlencode( $brand ), get_permalink( wc_get_page_id( 'shop' ) ) );
-            ?>
-            <a href="<?php echo esc_url( $brand_url ); ?>"
-               style="display:flex;align-items:center;justify-content:center;padding:var(--space-4);background:var(--clr-white);border:1.5px solid var(--clr-border);border-radius:var(--radius-md);font-family:var(--font-condensed);font-size:var(--font-size-sm);font-weight:700;color:var(--clr-text-muted);text-decoration:none;transition:all var(--transition-fast);letter-spacing:0.04em;"
-               onmouseover="this.style.borderColor='var(--clr-orange)';this.style.color='var(--clr-orange)';"
-               onmouseout="this.style.borderColor='var(--clr-border)';this.style.color='var(--clr-text-muted)';">
-                <?php echo esc_html( $brand ); ?>
-            </a>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- ⑦ Trade Callout Banner -->
-    <section style="margin-bottom:var(--space-10);">
-        <div style="background:var(--clr-nav-bg);border-radius:var(--radius-md);padding:var(--space-10) var(--space-10);display:flex;align-items:center;justify-content:space-between;gap:var(--space-8);flex-wrap:wrap;border-left:4px solid var(--clr-orange);position:relative;overflow:hidden;">
-            <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(255,255,255,.012) 18px,rgba(255,255,255,.012) 19px);pointer-events:none;"></div>
-            <div style="position:relative;z-index:1;">
-                <p style="font-family:var(--font-condensed);font-size:var(--font-size-xs);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--clr-orange);margin-bottom:var(--space-2);">Trade &amp; Professional</p>
-                <h2 style="font-family:var(--font-condensed);font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:var(--space-3);">
-                    Supplying trade professionals<br>across South Africa.
-                </h2>
-                <p style="font-size:var(--font-size-sm);color:rgba(255,255,255,.60);max-width:420px;line-height:1.6;">
-                    Volume pricing, dedicated support, and stock you can rely on. Contact us to discuss a trade account.
-                </p>
+    <!-- ⑥ Brand Strip — B's grid style -->
+    <section class="brand-strip-b">
+        <div class="brand-strip-inner">
+            <div class="brand-strip-head">
+                <div class="section-eyebrow">04 · Brands</div>
+                <h2 class="brand-strip-title">Trusted names<br><em class="serif-italic">on every shelf.</em></h2>
+                <p class="brand-strip-sub">DeWalt, Bosch, Makita, Plascon, Stanley and 60+ more — same warranties as buying direct.</p>
             </div>
-            <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;position:relative;z-index:1;">
-                <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>"
-                   style="display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-6);background:var(--clr-orange);color:#fff;border-radius:var(--radius-sm);font-family:var(--font-condensed);font-size:var(--font-size-base);font-weight:700;letter-spacing:0.04em;text-decoration:none;">
-                    Register Now
-                </a>
+            <div class="brand-grid">
                 <?php
-                $contact_page = get_page_by_path( 'contact-us' );
-                if ( $contact_page ) : ?>
-                <a href="<?php echo esc_url( get_permalink( $contact_page ) ); ?>"
-                   style="display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-6);background:transparent;color:rgba(255,255,255,.75);border:1.5px solid rgba(255,255,255,.25);border-radius:var(--radius-sm);font-family:var(--font-condensed);font-size:var(--font-size-base);font-weight:700;letter-spacing:0.04em;text-decoration:none;">
-                    Contact Us
+                $brands_raw = get_theme_mod( 'mica_brand_list', 'DeWalt, Bosch, Makita, Stanley, Plascon, Ryobi, Dulux, Cobra, Hamilton, Lasher, Eurolux, Rust-Oleum' );
+                $brands = array_map( 'trim', explode( ',', $brands_raw ) );
+                foreach ( $brands as $brand ) :
+                    $brand_url = add_query_arg( 's', urlencode( $brand ), get_permalink( wc_get_page_id( 'shop' ) ) );
+                ?>
+                <a href="<?php echo esc_url( $brand_url ); ?>" class="brand-cell">
+                    <?php echo esc_html( $brand ); ?>
                 </a>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
 
-    <!-- ⑧ Trust Signals -->
-    <section>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-3);">
-            <?php
-            $trust = [
-                [
-                    'svg'   => '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-                    'title' => 'Secure Payments',
-                    'desc'  => 'PayFast secured. SSL encrypted checkout on every order.',
-                ],
-                [
-                    'svg'   => '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
-                    'title' => 'Expert Advice',
-                    'desc'  => 'Hardware professionals available in-store and online.',
-                ],
-                [
-                    'svg'   => '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.65"/></svg>',
-                    'title' => 'Easy Returns',
-                    'desc'  => '30-day returns on unopened items. No hassle, no questions.',
-                ],
-                [
-                    'svg'   => '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
-                    'title' => 'Fast Delivery',
-                    'desc'  => 'Nationwide delivery in 5–7 working days from dispatch.',
-                ],
-            ];
-            foreach ( $trust as $t ) : ?>
-            <div style="background:var(--clr-white);border:1.5px solid var(--clr-border);border-radius:var(--radius-md);padding:var(--space-5);display:flex;gap:var(--space-4);align-items:flex-start;border-left:3px solid var(--clr-orange);">
-                <span style="color:var(--clr-orange);flex-shrink:0;margin-top:2px;"><?php echo $t['svg']; ?></span>
-                <div>
-                    <strong style="display:block;margin-bottom:4px;font-family:var(--font-condensed);font-size:var(--font-size-base);font-weight:700;letter-spacing:0.02em;">
-                        <?php echo esc_html( $t['title'] ); ?>
-                    </strong>
-                    <span style="font-size:var(--font-size-sm);color:var(--clr-text-muted);line-height:1.5;">
-                        <?php echo esc_html( $t['desc'] ); ?>
-                    </span>
-                </div>
+    <!-- ⑦ Local Shop Strip — B's community callout -->
+    <section class="local-strip-b">
+        <div class="local-strip-visual">
+            <div class="local-strip-hours">
+                <span class="local-hours-label">Your nearest Mica</span>
+                <span class="local-hours-name"><?php echo esc_html( get_theme_mod( 'mica_local_name', 'Find a store' ) ); ?></span>
+                <span class="local-hours-times">
+                    <?php echo esc_html( get_theme_mod( 'mica_local_hours_mon', 'Mon–Fri · 07:30–17:30' ) ); ?><br>
+                    <?php echo esc_html( get_theme_mod( 'mica_local_hours_sat', 'Sat · 08:00–14:00 · Sun closed' ) ); ?>
+                </span>
             </div>
-            <?php endforeach; ?>
+        </div>
+        <div class="local-strip-copy">
+            <div class="section-eyebrow">05 · The shop</div>
+            <h2 class="local-strip-title">
+                <?php echo esc_html( get_theme_mod( 'mica_local_headline', "We're around the corner." ) ); ?>
+                <em class="serif-italic"><?php echo esc_html( get_theme_mod( 'mica_local_accent', 'Always have been.' ) ); ?></em>
+            </h2>
+            <p class="local-strip-sub"><?php echo esc_html( get_theme_mod( 'mica_local_sub', 'Family-run stores across South Africa. We mix paint, cut keys, hire tools, and answer questions you\'d be embarrassed to Google.' ) ); ?></p>
+            <div class="local-strip-ctas">
+                <a href="<?php $contact_page = get_page_by_path('contact-us'); echo esc_url( $contact_page ? get_permalink($contact_page) : '#' ); ?>" class="local-btn-primary">
+                    Contact us <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+                <a href="<?php echo esc_url( get_permalink( wc_get_page_id('myaccount') ) ); ?>" class="local-btn-ghost">
+                    Open a trade account
+                </a>
+            </div>
+            <div class="local-trust-grid">
+                <?php
+                $local_trust = [
+                    ['truck', 'Same-day in the bay'],
+                    ['pin',   '30-min collect'],
+                    ['wrench','Paint mixing'],
+                    ['shield','30-day returns'],
+                ];
+                foreach ( $local_trust as $lt ) : ?>
+                <div class="local-trust-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <?php
+                        $icons = [
+                            'truck'  => '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+                            'pin'    => '<path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/>',
+                            'wrench' => '<path d="M14.7 6.3a4 4 0 0 1 5 5l-2.3-2.3-2 2 2.3 2.3a4 4 0 0 1-5-5L4.6 16.4a2 2 0 1 0 2.8 2.8L18 8.6"/>',
+                            'shield' => '<path d="M12 3 4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+                        ];
+                        echo $icons[ $lt[0] ] ?? '';
+                        ?>
+                    </svg>
+                    <span><?php echo esc_html( $lt[1] ); ?></span>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </section>
 

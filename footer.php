@@ -1,97 +1,86 @@
     </main><!-- #main -->
 
-    <footer class="site-footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-grid">
+    <footer class="site-footer-b" role="contentinfo">
+        <div class="footer-b-inner">
 
-                <!-- Brand -->
-                <div class="footer-brand">
-                        <?php if ( has_custom_logo() ) : ?>
-                            <?php the_custom_logo(); ?>
-                        <?php else : ?>
-                            <span class="logo-text">
-                                mica<span>online</span>
-                            </span>
-                        <?php endif; ?>
-                    <p class="footer-tagline">
-                        <?php echo esc_html( get_theme_mod( 'mica_utility_bar' ) ); ?>
+            <!-- B's bold headline + columns -->
+            <div class="footer-b-grid">
+                <div class="footer-b-brand">
+                    <h2 class="footer-b-headline">
+                        Your neighbourhood<br>hardware store.
+                        <em class="serif-italic" style="color:var(--clr-yellow);"> Online too.</em>
+                    </h2>
+                    <p class="footer-b-tagline">
+                        Family-run since 1988. Stocked locally, dispatched daily, with the same advice you'd get over the counter — only typed.
                     </p>
                     <div class="footer-payments">
                         <span class="payment-badge">PayFast</span>
-                        <!-- <span class="payment-badge">Yoco</span>
-                        <span class="payment-badge">EFT</span>
-                        <span class="payment-badge">Visa</span>
-                        <span class="payment-badge">Mastercard</span> -->
+                        <span class="payment-badge">SSL Secured</span>
                     </div>
                 </div>
 
-                <!-- Shop links -->
+                <!-- Shop -->
                 <div>
-                    <h3 class="footer-heading"><?php esc_html_e( 'Shop', 'micaonline' ); ?></h3>
-                    <ul class="footer-links">
+                    <h3 class="footer-b-heading">Shop</h3>
+                    <ul class="footer-b-links">
                         <?php
                         $cats = mica_get_categories( 0 );
                         $shown = 0;
                         foreach ( $cats as $cat ) :
-                            if ( $shown >= 8 ) break;
+                            if ( $shown >= 7 ) break;
                         ?>
-                        <li><a href="<?php echo esc_url( get_term_link( $cat ) ); ?>">
-                            <?php echo esc_html( $cat->name ); ?>
-                        </a></li>
+                        <li><a href="<?php echo esc_url( get_term_link( $cat ) ); ?>"><?php echo esc_html( $cat->name ); ?></a></li>
                         <?php $shown++; endforeach; ?>
-                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">
-                            <?php esc_html_e( 'All Products →', 'micaonline' ); ?>
-                        </a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">All Products →</a></li>
                     </ul>
                 </div>
 
-                <!-- Help links -->
+                <!-- Help -->
                 <div>
-                    <h3 class="footer-heading"><?php esc_html_e( 'Help', 'micaonline' ); ?></h3>
-                    <?php
-                    wp_nav_menu( [
-                        'theme_location' => 'footer-help',
-                        'container'      => false,
-                        'menu_class'     => 'footer-links',
-                        'depth'          => 1,
-                        'item_spacing'   => 'discard',
-                        'fallback_cb'    => function () {
-                            // Fallback until a menu is assigned in Appearance → Menus
-                            echo '<ul class="footer-links">';
-                            printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ), esc_html__( 'My Account', 'micaonline' ) );
-                            printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( wc_get_page_id( 'cart' ) ) ),      esc_html__( 'Cart', 'micaonline' ) );
-                            printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( wc_get_page_id( 'checkout' ) ) ),  esc_html__( 'Checkout', 'micaonline' ) );
-                            echo '<li><a href="' . esc_url( home_url( '/returns' ) )  . '">' . esc_html__( 'Returns Policy', 'micaonline' )   . '</a></li>';
-                            echo '<li><a href="' . esc_url( home_url( '/delivery' ) ) . '">' . esc_html__( 'Click &amp; Collect', 'micaonline' ) . '</a></li>';
-                            echo '<li><a href="' . esc_url( home_url( '/faq' ) )      . '">' . esc_html__( 'FAQ', 'micaonline' )               . '</a></li>';
-                            echo '</ul>';
-                        },
-                    ] );
-                    ?>
+                    <h3 class="footer-b-heading">Help</h3>
+                    <ul class="footer-b-links">
+                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>">My Account</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'cart' ) ) ); ?>">Cart</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'checkout' ) ) ); ?>">Checkout</a></li>
+                        <li><a href="<?php echo esc_url( home_url('/returns') ); ?>">Returns Policy</a></li>
+                        <li><a href="<?php echo esc_url( home_url('/click-collect') ); ?>">Click &amp; Collect</a></li>
+                        <li><a href="<?php echo esc_url( home_url('/faq') ); ?>">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Visit -->
+                <div>
+                    <h3 class="footer-b-heading">Visit</h3>
+                    <ul class="footer-b-links">
+                        <li><a href="#">Find a store</a></li>
+                        <li><a href="#">Tool hire</a></li>
+                        <li><a href="#">Paint mixing</a></li>
+                        <li><a href="#">Key cutting</a></li>
+                        <li><a href="#">Workshops</a></li>
+                    </ul>
                 </div>
 
                 <!-- Contact -->
                 <div>
-                    <h3 class="footer-heading"><?php esc_html_e( 'Contact', 'micaonline' ); ?></h3>
-                    <ul class="footer-links">
+                    <h3 class="footer-b-heading">Hello</h3>
+                    <ul class="footer-b-links">
                         <?php $contact_page = get_page_by_path( 'contact-us' ); ?>
                         <?php if ( $contact_page ) : ?>
-                        <li><a href="<?php echo esc_url( get_permalink( $contact_page ) ); ?>"><?php esc_html_e( 'Contact Us', 'micaonline' ); ?></a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( $contact_page ) ); ?>">Contact Us</a></li>
                         <?php endif; ?>
-                        <li><a href="mailto:<?php echo esc_html( get_theme_mod( 'mica_store_email' ) ); ?>"><?php echo esc_html( get_theme_mod( 'mica_store_email' ) ); ?></a></li>
-                        <li><a href="tel:<?php echo esc_html( get_theme_mod( 'mica_store_phone' ) ); ?>"><?php echo esc_html( get_theme_mod( 'mica_store_phone' ) ); ?></a></li>
-                        <li style="color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.5rem;"><?php echo get_theme_mod( 'mica_store_hours' ); ?></li>
+                        <?php if ( get_theme_mod( 'mica_store_email' ) ) : ?>
+                        <li><a href="mailto:<?php echo esc_attr( get_theme_mod( 'mica_store_email' ) ); ?>"><?php echo esc_html( get_theme_mod( 'mica_store_email' ) ); ?></a></li>
+                        <?php endif; ?>
+                        <?php if ( get_theme_mod( 'mica_store_phone' ) ) : ?>
+                        <li><a href="tel:<?php echo esc_attr( get_theme_mod( 'mica_store_phone' ) ); ?>"><?php echo esc_html( get_theme_mod( 'mica_store_phone' ) ); ?></a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
-
             </div>
 
-            <div class="footer-bottom">
-                <span>© <?php echo date( 'Y' ); ?> micaonline. All rights reserved.</span>
-                <div class="flex gap-4">
-                    <a href="/privacy-policy"><?php esc_html_e( 'Privacy Policy', 'micaonline' ); ?></a>
-                    <a href="/terms"><?php esc_html_e( 'Terms', 'micaonline' ); ?></a>
-                </div>
+            <div class="footer-b-bottom">
+                <span>© <?php echo date( 'Y' ); ?> Mica Hardware Co. · Built for WooCommerce on Xneelo</span>
+                <span>Let us show you how.</span>
             </div>
         </div>
     </footer>

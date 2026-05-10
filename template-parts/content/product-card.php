@@ -70,6 +70,16 @@ if ( $is_paint ) {
     esc_attr( $paint_code )
 ) : ''; ?>>
 
+    <!-- B-style SKU/Brand strip -->
+    <?php
+    $sku_strip = $product->get_sku();
+    $brand_strip = $product->get_attribute( 'brand' ) ?: $product->get_attribute( 'pa_brand' );
+    ?>
+    <div class="product-card-sku-strip">
+        <span><?php echo $sku_strip ? esc_html( $sku_strip ) : '—'; ?></span>
+        <span><?php echo $brand_strip ? esc_html( $brand_strip ) : esc_html( get_bloginfo('name') ); ?></span>
+    </div>
+
     <!-- Image -->
     <div class="product-card-img">
         <a href="<?php echo esc_url( $permalink ); ?>" tabindex="-1" aria-hidden="true">
