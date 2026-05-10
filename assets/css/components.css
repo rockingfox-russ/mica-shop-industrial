@@ -1379,18 +1379,26 @@
 ════════════════════════════════════ */
 .product-card {
   background: var(--clr-white);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--clr-border);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
-  transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+  position: relative;
+  transition: border-color var(--transition-fast);
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 10px; height: 10px;
+  background: var(--clr-orange);
+  z-index: 1;
 }
 .product-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
   border-color: var(--clr-orange);
 }
+.product-card-img { overflow: hidden; border-radius: 0; }
 .product-card-img {
   position: relative;
   aspect-ratio: 1;

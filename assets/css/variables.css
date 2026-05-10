@@ -73,17 +73,17 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* ── Radii ───────────────────────────────────────────── */
-  --radius-sm:   3px;
-  --radius-md:   6px;
-  --radius-lg:   10px;
-  --radius-xl:   14px;
+  /* ── Radii — engineering-grade, angular ─────────────── */
+  --radius-sm:   2px;
+  --radius-md:   2px;
+  --radius-lg:   4px;
+  --radius-xl:   4px;
   --radius-full: 9999px;
 
-  /* ── Shadows ─────────────────────────────────────────── */
-  --shadow-sm:  0 1px 3px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.07);
-  --shadow-md:  0 4px 12px rgba(0,0,0,.13), 0 2px 4px rgba(0,0,0,.08);
-  --shadow-lg:  0 8px 24px rgba(0,0,0,.16), 0 4px 8px rgba(0,0,0,.08);
+  /* ── Shadows — minimal; cards use hairline borders ───── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:  0 0 5px rgba(0,0,0,.15);
+  --shadow-lg:  0 4px 16px rgba(0,0,0,.18);
 
   /* ── Layout ──────────────────────────────────────────── */
   --header-height:     72px;

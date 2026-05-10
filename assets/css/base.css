@@ -204,17 +204,24 @@ button { cursor: pointer; }
   justify-content: space-between;
   gap: var(--space-4);
   margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--clr-border);
 }
 .section-title {
   font-family: var(--font-condensed);
   font-size: var(--font-size-3xl);
   font-weight: 800;
   letter-spacing: -0.01em;
+  line-height: 1;
 }
 .section-link {
-  font-size: var(--font-size-sm);
+  font-family: var(--font-condensed);
+  font-size: var(--font-size-base);
   color: var(--clr-orange);
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 .section-link:hover { color: var(--clr-orange-dark); }
 
