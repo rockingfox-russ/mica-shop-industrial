@@ -23,6 +23,7 @@ $includes = [
     'inc/stock-checker.php',
     'inc/store-stock-db.php',
     'inc/customizer.php',
+    'inc/brand-tags.php',
     'inc/schema.php',
 ];
 

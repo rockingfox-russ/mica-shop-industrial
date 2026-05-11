@@ -234,23 +234,34 @@ $sale_query = new WP_Query( $sale_args );
             </div>
             <div class="brand-grid">
                 <?php
-                $brands_raw = get_theme_mod( 'mica_brand_list', "DeWalt\nBosch\nMakita\nStanley\nPlascon\nRyobi\nDulux\nCobra\nHamilton\nLasher\nEurolux\nRust-Oleum" );
-                $brand_lines = array_filter( array_map( 'trim', explode( "\n", $brands_raw ) ) );
-                foreach ( $brand_lines as $line ) :
-                    $parts     = explode( '|', $line, 2 );
-                    $brand_name = trim( $parts[0] );
-                    $brand_logo = isset( $parts[1] ) ? trim( $parts[1] ) : '';
-                    $brand_url  = add_query_arg( 's', urlencode( $brand_name ), get_permalink( wc_get_page_id( 'shop' ) ) );
+                // Load from product_tag terms — slugs from Customizer, fallback to top 12 by count
+                $brand_slugs = array_filter( array_map( 'trim', explode( ',', get_theme_mod( 'mica_brand_tags', '' ) ) ) );
+                if ( ! empty( $brand_slugs ) ) {
+                    $brand_terms = array_filter( array_map( fn( $s ) => get_term_by( 'slug', $s, 'product_tag' ), $brand_slugs ) );
+                } else {
+                    $brand_terms = get_terms( [
+                        'taxonomy'   => 'product_tag',
+                        'number'     => 12,
+                        'orderby'    => 'count',
+                        'order'      => 'DESC',
+                        'hide_empty' => true,
+                    ] );
+                }
+                foreach ( $brand_terms as $brand_term ) :
+                    if ( ! $brand_term instanceof WP_Term ) continue;
+                    $logo_id  = (int) get_term_meta( $brand_term->term_id, 'mica_tag_logo', true );
+                    $logo_url = $logo_id ? wp_get_attachment_image_url( $logo_id, 'medium' ) : '';
+                    $link_url = add_query_arg( [ 'filter_tag' => [ $brand_term->slug ] ], get_permalink( wc_get_page_id( 'shop' ) ) );
                 ?>
-                <a href="<?php echo esc_url( $brand_url ); ?>" class="brand-cell">
-                    <?php if ( $brand_logo ) : ?>
-                        <img src="<?php echo esc_url( $brand_logo ); ?>"
-                             alt="<?php echo esc_attr( $brand_name ); ?>"
+                <a href="<?php echo esc_url( $link_url ); ?>" class="brand-cell">
+                    <?php if ( $logo_url ) : ?>
+                        <img src="<?php echo esc_url( $logo_url ); ?>"
+                             alt="<?php echo esc_attr( $brand_term->name ); ?>"
                              style="max-height:40px;max-width:110px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.7;transition:opacity .15s,filter .15s;"
                              onmouseover="this.style.filter='none';this.style.opacity='1';"
                              onmouseout="this.style.filter='grayscale(1)';this.style.opacity='.7';">
                     <?php else : ?>
-                        <?php echo esc_html( $brand_name ); ?>
+                        <?php echo esc_html( $brand_term->name ); ?>
                     <?php endif; ?>
                 </a>
                 <?php endforeach; ?>

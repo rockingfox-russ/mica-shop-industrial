@@ -1499,7 +1499,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
 }
+/* WooCommerce injects a "View basket" link after AJAX add — hide inside cards */
+.product-card .added_to_cart { display: none !important; }
 .product-card-price {
   display: flex;
   flex-direction: column;
@@ -1541,8 +1545,13 @@
   cursor: pointer;
   transition: background var(--transition-fast);
   white-space: nowrap;
+  width: 100%;
+  justify-content: center;
 }
-.btn-add-to-cart:hover { background: var(--clr-orange-dark); }
+.btn-add-to-cart:hover { 
+  background: var(--clr-orange-dark); 
+  color: white;
+}
 .btn-add-to-cart svg { width: 16px; height: 16px; flex-shrink: 0; }
 .btn-add-to-cart.added {
   background: var(--clr-success);
@@ -2078,10 +2087,11 @@
 
 /* Main dark card */
 .hero-main-card {
-  background: var(--clr-navy);
+  background: rgba(0, 0, 0, 0.5);
   position: relative;
   min-height: 520px;
   overflow: hidden;
+  background-blend-mode: overlay;
 }
 .hero-main-card::before {
   content: '';
@@ -2160,7 +2170,10 @@
   letter-spacing: -.01em;
   transition: background var(--transition-fast);
 }
-.hero-btn-primary:hover { background: var(--clr-yellow-dark); }
+.hero-btn-primary:hover { 
+  background: var(--clr-yellow-dark); 
+  color: white;
+}
 .hero-btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -2216,6 +2229,7 @@
   letter-spacing: -.02em;
   margin: 0 0 var(--space-3);
   max-width: 280px;
+  padding-top: var(--space-6);
 }
 .hero-deal-price {
   display: flex;
@@ -2245,7 +2259,10 @@
   text-decoration: none;
   letter-spacing: -.01em;
 }
-.hero-deal-link:hover { text-decoration: underline; }
+.hero-deal-link:hover { 
+  text-decoration: underline; 
+  color: white;
+}
 
 /* Trade card */
 .hero-trade-card {
@@ -2279,6 +2296,7 @@
   letter-spacing: -.01em;
   margin: 0 0 var(--space-5);
   max-width: 300px;
+  padding-top: var(--space-6);
 }
 .hero-trade-link {
   display: inline-flex;
@@ -2294,7 +2312,10 @@
   align-self: flex-start;
   transition: background var(--transition-fast);
 }
-.hero-trade-link:hover { background: var(--clr-yellow-dark); }
+.hero-trade-link:hover { 
+  background: var(--clr-yellow-dark); 
+  color: white;
+}
 
 /* Trust strip */
 .hero-trust-strip {

@@ -83,19 +83,22 @@ add_action( 'customize_register', function ( WP_Customize_Manager $wp_customize 
 
     /* ── Brand Strip ── */
     $wp_customize->add_section( 'mica_brands', [
-        'title'    => __( 'Brand Strip', 'micaonline' ),
-        'priority' => 35,
+        'title'       => __( 'Brand Strip', 'micaonline' ),
+        'description' => __( 'Brands are pulled from Products → Tags. Add a logo to each tag in Products → Tags → Edit. Then enter the tag slugs below.', 'micaonline' ),
+        'priority'    => 35,
     ] );
-    $wp_customize->add_setting( 'mica_brand_list', [
-        'default'           => 'DeWalt, Bosch, Makita, Stanley, Plascon, Ryobi, Dulux, Cobra, Hamilton, Lasher, Eurolux, Rust-Oleum',
+    $wp_customize->add_setting( 'mica_brand_tags', [
+        'default'           => '',
         'sanitize_callback' => 'sanitize_text_field',
     ] );
-    $wp_customize->add_control( 'mica_brand_list', [
-        'label'       => __( 'Brands — one per line', 'micaonline' ),
-        'description' => __( 'Format: BrandName or BrandName|https://url-to-logo.png — Max 12. Logo images show at 80px height.', 'micaonline' ),
+    $wp_customize->add_control( 'mica_brand_tags', [
+        'label'       => __( 'Brand tag slugs (comma-separated)', 'micaonline' ),
+        'description' => __( 'e.g. dewalt,bosch,makita,plascon — Find slugs in Products → Tags. Leave blank to show top 12 by product count.', 'micaonline' ),
         'section'     => 'mica_brands',
-        'type'        => 'textarea',
+        'type'        => 'text',
     ] );
+    /* Keep mica_brand_list registered so existing data isn't lost, just remove the control */
+    $wp_customize->add_setting( 'mica_brand_list', [ 'sanitize_callback' => 'sanitize_text_field' ] );
 
     /* ── Brand Colours ── */
     $wp_customize->add_section( 'mica_colours', [

@@ -179,7 +179,7 @@ if ( $is_paint ) {
                 <span><?php esc_html_e( 'Add', 'micaonline' ); ?></span>
             </a>
         <?php else : ?>
-            <a href="<?php echo esc_url( $permalink ); ?>" class="btn btn-ghost btn-sm">
+            <a href="<?php echo esc_url( $permalink ); ?>" class="btn-add-to-cart add_to_cart_button">
                 <?php esc_html_e( 'View', 'micaonline' ); ?>
             </a>
         <?php endif; ?>
