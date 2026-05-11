@@ -67,27 +67,40 @@ if ( ! empty( $_GET['filter_local_attr'] ) && is_array( $_GET['filter_local_attr
             <?php endif; ?>
         </div>
 
-        <!-- Subcategory tabs -->
+        <!-- Subcategory tabs — first tab pinned, rest carousel -->
         <?php
         $subcats = get_terms( [
             'taxonomy'   => 'product_cat',
             'parent'     => $scope_id,
             'hide_empty' => true,
-            'number'     => 10,
+            'number'     => 20,
         ] );
         if ( ! empty( $subcats ) && ! is_wp_error( $subcats ) ) : ?>
-        <div class="subcategory-tabs">
+        <div class="subcategory-tabs-wrap">
+            <!-- Pinned "All" tab -->
             <a href="<?php echo esc_url( $current_cat ? get_term_link( $current_cat ) : get_permalink( wc_get_page_id('shop') ) ); ?>"
-               class="subcategory-tab active">
+               class="subcategory-tab active subcategory-tab-pinned">
                 All <span class="subcategory-tab-count">· <?php global $wp_query; echo (int)$wp_query->found_posts; ?></span>
             </a>
-            <?php foreach ( $subcats as $sub ) : ?>
-            <a href="<?php echo esc_url( get_term_link( $sub ) ); ?>" class="subcategory-tab">
-                <?php echo esc_html( $sub->name ); ?>
-                <span class="subcategory-tab-count">· <?php echo mica_cat_product_count( $sub->term_id ); ?></span>
-            </a>
-            <?php endforeach; ?>
+            <!-- Scrollable remainder -->
+            <div class="subcategory-tabs-carousel" id="subcat-carousel">
+                <?php foreach ( $subcats as $sub ) : ?>
+                <a href="<?php echo esc_url( get_term_link( $sub ) ); ?>" class="subcategory-tab">
+                    <?php echo esc_html( $sub->name ); ?>
+                    <span class="subcategory-tab-count">· <?php echo mica_cat_product_count( $sub->term_id ); ?></span>
+                </a>
+                <?php endforeach; ?>
+            </div>
+            <button class="subcat-arrow subcat-prev" id="subcat-prev" aria-label="Previous">&#8249;</button>
+            <button class="subcat-arrow subcat-next" id="subcat-next" aria-label="Next">&#8250;</button>
         </div>
+        <script>
+        (function(){
+            var c = document.getElementById('subcat-carousel');
+            document.getElementById('subcat-prev').addEventListener('click', function(){ c.scrollBy({left:-200,behavior:'smooth'}); });
+            document.getElementById('subcat-next').addEventListener('click', function(){ c.scrollBy({left:200,behavior:'smooth'}); });
+        })();
+        </script>
         <?php endif; ?>
     </div>
 </div>

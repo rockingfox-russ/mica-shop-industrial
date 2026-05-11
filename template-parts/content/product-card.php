@@ -70,13 +70,13 @@ if ( $is_paint ) {
     esc_attr( $paint_code )
 ) : ''; ?>>
 
-    <!-- B-style SKU/Brand strip -->
+    <!-- B-style SKU/Brand strip — barcode from wpcf-barcode custom field -->
     <?php
-    $sku_strip = $product->get_sku();
+    $barcode_val = get_post_meta( $pid, 'wpcf-barcode', true );
     $brand_strip = $product->get_attribute( 'brand' ) ?: $product->get_attribute( 'pa_brand' );
     ?>
     <div class="product-card-sku-strip">
-        <span><?php echo $sku_strip ? esc_html( $sku_strip ) : '—'; ?></span>
+        <span><?php echo $barcode_val ? esc_html( $barcode_val ) : esc_html( $product->get_sku() ?: '—' ); ?></span>
         <span><?php echo $brand_strip ? esc_html( $brand_strip ) : esc_html( get_bloginfo('name') ); ?></span>
     </div>
 
@@ -134,9 +134,6 @@ if ( $is_paint ) {
             <a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
         </h3>
 
-        <?php if ( $sku ) : ?>
-            <span class="product-card-sku">SKU: <?php echo esc_html( $sku ); ?></span>
-        <?php endif; ?>
 
         <span class="product-card-stock <?php echo esc_attr( $stock['class'] ); ?>">
             <?php echo esc_html( $stock['label'] ); ?>
@@ -171,13 +168,16 @@ if ( $is_paint ) {
         </div>
 
         <?php if ( $product->is_in_stock() ) : ?>
-            <button class="btn-add-to-cart"
-                    data-product-id="<?php echo esc_attr( $pid ); ?>"
-                    data-nonce="<?php echo esc_attr( wp_create_nonce( 'wc-add-to-cart-' . $pid ) ); ?>"
-                    aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to cart', 'micaonline' ), $product->get_name() ) ); ?>">
+            <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>"
+               class="btn-add-to-cart add_to_cart_button ajax_add_to_cart"
+               data-product_id="<?php echo esc_attr( $pid ); ?>"
+               data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>"
+               data-quantity="1"
+               rel="nofollow"
+               aria-label="<?php echo esc_attr( sprintf( __( 'Add %s to cart', 'micaonline' ), $product->get_name() ) ); ?>">
                 <?php echo mica_icon( 'cart' ); ?>
                 <span><?php esc_html_e( 'Add', 'micaonline' ); ?></span>
-            </button>
+            </a>
         <?php else : ?>
             <a href="<?php echo esc_url( $permalink ); ?>" class="btn btn-ghost btn-sm">
                 <?php esc_html_e( 'View', 'micaonline' ); ?>

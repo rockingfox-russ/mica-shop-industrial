@@ -30,7 +30,14 @@ $sale_query = new WP_Query( $sale_args );
         <div class="hero-editorial-grid">
 
             <!-- Left: main dark card -->
-            <div class="hero-main-card">
+            <?php
+            $hero_img_id  = get_theme_mod( 'mica_hero_image', '' );
+            $hero_img_url = $hero_img_id ? wp_get_attachment_image_url( $hero_img_id, 'full' ) : '';
+            $hero_bg_style = $hero_img_url
+                ? 'style="background:var(--clr-navy);background-image:url(' . esc_url( $hero_img_url ) . ');background-size:cover;background-position:center;"'
+                : '';
+            ?>
+            <div class="hero-main-card" <?php echo $hero_bg_style; ?>>
                 <div class="hero-main-inner">
                     <div class="hero-main-top">
                         <span class="hero-chip-sale"><?php echo esc_html( get_theme_mod( 'mica_hero_sale_pct', 'Save up to 35%' ) ); ?></span>
@@ -95,24 +102,24 @@ $sale_query = new WP_Query( $sale_args );
                     <?php endif; ?>
                 </div>
 
-                <!-- Trade card -->
+                <!-- Delivery info card (trade account hidden until available) -->
                 <div class="hero-trade-card">
-                    <span class="hero-chip-trade">Trade Counter</span>
-                    <h3 class="hero-trade-title"><?php echo esc_html( get_theme_mod( 'mica_trade_title', 'Open a trade account — 30-day terms, monthly statement.' ) ); ?></h3>
-                    <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>" class="hero-trade-link">
-                        <?php echo esc_html( get_theme_mod( 'mica_trade_cta', 'Apply in 5 min →' ) ); ?>
+                    <span class="hero-chip-trade">Nationwide Delivery</span>
+                    <h3 class="hero-trade-title">Delivered to your door in 5–7 working days. Shop from anywhere in South Africa.</h3>
+                    <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="hero-trade-link">
+                        Shop online →
                     </a>
                 </div>
 
             </div><!-- .hero-side-stack -->
         </div><!-- .hero-editorial-grid -->
 
-        <!-- Trust strip -->
+        <!-- Trust strip — delivery & returns only -->
         <div class="hero-trust-strip">
-            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Same-day delivery in the bay</span>
-            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 30-min Click &amp; Collect</span>
+            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Nationwide delivery 5–7 working days</span>
             <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.65"/></svg> 30-day no-fuss returns</span>
-            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> In-store paint mixing &amp; key cutting</span>
+            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Secure checkout with PayFast</span>
+            <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Expert product advice</span>
         </div>
     </section>
 
@@ -150,9 +157,16 @@ $sale_query = new WP_Query( $sale_args );
                 $num    = str_pad( $i + 1, 2, '0', STR_PAD_LEFT );
                 $big    = $i === 0;
             ?>
+            <?php
+            $cat_thumb_id  = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+            $cat_thumb_url = $cat_thumb_id ? wp_get_attachment_image_url( $cat_thumb_id, 'large' ) : '';
+            $tile_bg = $cat_thumb_url
+                ? 'background:' . esc_attr( $swatch ) . ';background-image:url(' . esc_url( $cat_thumb_url ) . ');background-size:cover;background-position:center;'
+                : 'background:' . esc_attr( $swatch ) . ';';
+            ?>
             <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>"
                class="aisle-tile"
-               style="background:<?php echo esc_attr( $swatch ); ?>;<?php echo $size; ?>">
+               style="<?php echo $tile_bg; ?><?php echo $size; ?>">
                 <div class="aisle-tile-top">
                     <span class="aisle-num">Aisle <?php echo $num; ?></span>
                     <span class="aisle-count"><?php echo number_format( $count ); ?> items →</span>
@@ -220,19 +234,31 @@ $sale_query = new WP_Query( $sale_args );
             </div>
             <div class="brand-grid">
                 <?php
-                $brands_raw = get_theme_mod( 'mica_brand_list', 'DeWalt, Bosch, Makita, Stanley, Plascon, Ryobi, Dulux, Cobra, Hamilton, Lasher, Eurolux, Rust-Oleum' );
-                $brands = array_map( 'trim', explode( ',', $brands_raw ) );
-                foreach ( $brands as $brand ) :
-                    $brand_url = add_query_arg( 's', urlencode( $brand ), get_permalink( wc_get_page_id( 'shop' ) ) );
+                $brands_raw = get_theme_mod( 'mica_brand_list', "DeWalt\nBosch\nMakita\nStanley\nPlascon\nRyobi\nDulux\nCobra\nHamilton\nLasher\nEurolux\nRust-Oleum" );
+                $brand_lines = array_filter( array_map( 'trim', explode( "\n", $brands_raw ) ) );
+                foreach ( $brand_lines as $line ) :
+                    $parts     = explode( '|', $line, 2 );
+                    $brand_name = trim( $parts[0] );
+                    $brand_logo = isset( $parts[1] ) ? trim( $parts[1] ) : '';
+                    $brand_url  = add_query_arg( 's', urlencode( $brand_name ), get_permalink( wc_get_page_id( 'shop' ) ) );
                 ?>
                 <a href="<?php echo esc_url( $brand_url ); ?>" class="brand-cell">
-                    <?php echo esc_html( $brand ); ?>
+                    <?php if ( $brand_logo ) : ?>
+                        <img src="<?php echo esc_url( $brand_logo ); ?>"
+                             alt="<?php echo esc_attr( $brand_name ); ?>"
+                             style="max-height:40px;max-width:110px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.7;transition:opacity .15s,filter .15s;"
+                             onmouseover="this.style.filter='none';this.style.opacity='1';"
+                             onmouseout="this.style.filter='grayscale(1)';this.style.opacity='.7';">
+                    <?php else : ?>
+                        <?php echo esc_html( $brand_name ); ?>
+                    <?php endif; ?>
                 </a>
                 <?php endforeach; ?>
             </div>
         </div>
     </section>
 
+    <?php /* Local strip hidden — click & collect not yet available */ if ( false ) : ?>
     <!-- ⑦ Local Shop Strip — B's community callout -->
     <section class="local-strip-b">
         <div class="local-strip-visual">
@@ -287,6 +313,8 @@ $sale_query = new WP_Query( $sale_args );
             </div>
         </div>
     </section>
+
+    <?php endif; /* end local strip hidden */ ?>
 
 </div>
 

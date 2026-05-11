@@ -33,11 +33,10 @@
                 <?php endif; ?>
             </div>
             <div class="utility-bar-b-right">
-                <span>Trade counter</span>
-                <span>Tool hire</span>
-                <span>Workshops</span>
-                <?php $find_store = get_page_by_path( 'find-a-store' ); ?>
-                <a href="<?php echo esc_url( $find_store ? get_permalink( $find_store ) : '#' ); ?>" style="color:var(--clr-text-muted);text-decoration:none;">Find a store →</a>
+                <span>5–7 day nationwide delivery</span>
+                <span>30-day returns</span>
+                <?php $contact_page = get_page_by_path( 'contact-us' ); ?>
+                <a href="<?php echo esc_url( $contact_page ? get_permalink( $contact_page ) : '#' ); ?>" style="color:var(--clr-text-muted);text-decoration:none;">Contact us →</a>
             </div>
         </div>
     </div>

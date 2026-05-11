@@ -171,28 +171,21 @@ while ( have_posts() ) :
                 </div>
             <?php endif; ?>
 
-            <!-- Fulfilment chips — B style -->
-            <div class="fulfilment-grid-b">
+            <!-- Fulfilment chips — delivery only (collect/same-day not yet available) -->
+            <div class="fulfilment-grid-b" style="grid-template-columns:1fr 1fr;">
                 <div class="fulfilment-chip-b active">
                     <div class="fulfilment-chip-top">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
-                        <span class="fulfilment-chip-price">FREE</span>
-                    </div>
-                    <span class="fulfilment-chip-label">Collect · 30 min</span>
-                </div>
-                <div class="fulfilment-chip-b">
-                    <div class="fulfilment-chip-top">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                        <span class="fulfilment-chip-price">R 49</span>
+                        <span class="fulfilment-chip-price">Nationwide</span>
                     </div>
-                    <span class="fulfilment-chip-label">Same-day · bay</span>
+                    <span class="fulfilment-chip-label">Delivery 5–7 working days</span>
                 </div>
                 <div class="fulfilment-chip-b">
                     <div class="fulfilment-chip-top">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
-                        <span class="fulfilment-chip-price">R 89</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.65"/></svg>
+                        <span class="fulfilment-chip-price">30 days</span>
                     </div>
-                    <span class="fulfilment-chip-label">Courier · 2–3 days</span>
+                    <span class="fulfilment-chip-label">No-fuss returns</span>
                 </div>
             </div>
 
@@ -223,13 +216,13 @@ while ( have_posts() ) :
             <!-- Meta list -->
             <ul class="product-meta-list">
                 <li class="product-meta-item">
-                    <?php echo mica_icon( 'store' ); ?>
-                    <span><?php esc_html_e( 'Standard Delivery:', 'micaonline' ); ?>
-                    <strong><?php esc_html_e( '5-7 Working Days', 'micaonline' ); ?></strong></span>
+                    <?php echo mica_icon( 'truck' ); ?>
+                    <span><?php esc_html_e( 'Nationwide delivery:', 'micaonline' ); ?>
+                    <strong><?php esc_html_e( '5–7 working days', 'micaonline' ); ?></strong></span>
                 </li>
                 <li class="product-meta-item">
-                    <?php echo mica_icon( 'truck' ); ?>
-                    <span><?php esc_html_e( 'Nationwide delivery available', 'micaonline' ); ?></span>
+                    <?php echo mica_icon( 'shield' ); ?>
+                    <span><?php esc_html_e( '30-day returns on unopened items', 'micaonline' ); ?></span>
                 </li>
             </ul>
 

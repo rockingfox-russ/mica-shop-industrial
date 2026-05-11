@@ -39,6 +39,14 @@ add_action( 'customize_register', function ( WP_Customize_Manager $wp_customize 
         'title'    => __( 'Homepage Hero', 'micaonline' ),
         'priority' => 32,
     ] );
+    // Hero background image
+    $wp_customize->add_setting( 'mica_hero_image', [ 'default' => '', 'sanitize_callback' => 'absint' ] );
+    $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'mica_hero_image', [
+        'label'     => __( 'Hero background image', 'micaonline' ),
+        'section'   => 'mica_hero',
+        'mime_type' => 'image',
+    ] ) );
+
     $hero_fields = [
         'mica_hero_eyebrow'   => [ 'label' => 'Hero eyebrow label',      'default' => 'Power Tools Week' ],
         'mica_hero_headline'  => [ 'label' => 'Hero headline (plain)',    'default' => 'Built for the next' ],
@@ -83,8 +91,8 @@ add_action( 'customize_register', function ( WP_Customize_Manager $wp_customize 
         'sanitize_callback' => 'sanitize_text_field',
     ] );
     $wp_customize->add_control( 'mica_brand_list', [
-        'label'       => __( 'Brands (comma-separated)', 'micaonline' ),
-        'description' => __( 'Each brand becomes a clickable cell in the grid. Max 12 recommended.', 'micaonline' ),
+        'label'       => __( 'Brands — one per line', 'micaonline' ),
+        'description' => __( 'Format: BrandName or BrandName|https://url-to-logo.png — Max 12. Logo images show at 80px height.', 'micaonline' ),
         'section'     => 'mica_brands',
         'type'        => 'textarea',
     ] );
