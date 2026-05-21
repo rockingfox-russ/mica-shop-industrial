@@ -1,8 +1,271 @@
 /* =============================================================
    Direction B elements — header, section heads, aisle grid,
    brand strip, local strip, product card, shop, product page,
-   footer B
+   thankyou page, footer B
    ============================================================= */
+
+/* ════════════════════════════════════
+   ORDER RECEIVED / THANK YOU PAGE
+════════════════════════════════════ */
+.thankyou-b { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding) var(--space-16); }
+
+/* Success hero banner */
+.thankyou-hero-b {
+  background: var(--clr-navy);
+  position: relative;
+  padding: var(--space-12) var(--space-10);
+  margin-bottom: var(--space-8);
+  overflow: hidden;
+}
+.thankyou-hero-b::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-22deg, transparent, transparent 12px, rgba(255,255,255,.03) 12px, rgba(255,255,255,.03) 13px);
+  pointer-events: none;
+}
+.thankyou-hero-inner { position: relative; z-index: 1; max-width: 640px; }
+.thankyou-check {
+  width: 48px; height: 48px;
+  background: var(--clr-yellow);
+  color: var(--clr-text);
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+.thankyou-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--clr-yellow);
+  margin-bottom: var(--space-3);
+}
+.thankyou-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: .95;
+  color: #fff;
+  margin: 0 0 var(--space-5);
+}
+.thankyou-sub {
+  font-size: var(--font-size-base);
+  color: rgba(255,255,255,.75);
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+/* Order meta strip */
+.thankyou-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--clr-border);
+  margin-bottom: var(--space-8);
+}
+.thankyou-meta-item {
+  padding: var(--space-5) var(--space-6);
+  border-right: 1px solid var(--clr-border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.thankyou-meta-item:last-child { border-right: none; }
+.thankyou-meta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.thankyou-meta-value {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--clr-text);
+}
+.thankyou-total { color: var(--clr-navy); font-size: var(--font-size-xl); }
+
+/* Main grid */
+.thankyou-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* Items column */
+.thankyou-section-head {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--clr-border);
+  margin-bottom: var(--space-4);
+}
+.thankyou-items-list { display: flex; flex-direction: column; gap: 0; }
+.thankyou-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--clr-border);
+}
+.thankyou-item-img {
+  width: 64px; height: 64px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.thankyou-item-img img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.thankyou-item-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--clr-text);
+  line-height: 1.3;
+}
+.thankyou-item-sku {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  margin-top: 2px;
+}
+.thankyou-item-qty {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--clr-text-muted);
+  margin-top: 4px;
+}
+.thankyou-item-price {
+  font-family: var(--font-display);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--clr-text);
+  text-align: right;
+}
+
+/* Totals */
+.thankyou-totals {
+  margin-top: var(--space-2);
+  border-top: 2px solid var(--clr-text);
+  padding-top: var(--space-4);
+}
+.thankyou-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+  font-family: var(--font-sans);
+}
+.thankyou-discount { color: var(--clr-red); }
+.thankyou-grand-total {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  color: var(--clr-text);
+  border-top: 1px solid var(--clr-border);
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+}
+
+/* Sidebar cards */
+.thankyou-card {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  padding: var(--space-5) var(--space-6);
+}
+.thankyou-address {
+  font-style: normal;
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--clr-text-muted);
+}
+.thankyou-delivery-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--clr-navy);
+}
+.thankyou-contact-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+}
+.thankyou-actions { margin-top: var(--space-5); }
+
+/* Buttons */
+.thankyou-btn-primary {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 12px 24px;
+  background: var(--clr-navy); color: #fff;
+  font-family: var(--font-display); font-size: var(--font-size-base); font-weight: 700;
+  text-decoration: none; transition: background var(--transition-fast);
+}
+.thankyou-btn-primary:hover { background: var(--clr-navy-deep); }
+.thankyou-btn-ghost {
+  display: inline-flex; align-items: center; padding: 12px 24px;
+  border: 1px solid var(--clr-text); color: var(--clr-text);
+  font-family: var(--font-display); font-size: var(--font-size-base); font-weight: 600;
+  text-decoration: none; transition: background var(--transition-fast), color var(--transition-fast);
+}
+.thankyou-btn-ghost:hover { background: var(--clr-text); color: var(--clr-bg); }
+
+/* Failed state */
+.thankyou-failed-b {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-left: 4px solid var(--clr-red);
+  padding: var(--space-10) var(--space-10);
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+.thankyou-failed-icon {
+  width: 48px; height: 48px;
+  background: var(--clr-red); color: #fff;
+  font-size: 20px; font-weight: 900;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: var(--space-4);
+}
+.thankyou-failed-title {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 900; letter-spacing: -.02em;
+  margin: 0 0 var(--space-3);
+}
+.thankyou-failed-sub {
+  font-size: var(--font-size-base); color: var(--clr-text-muted);
+  max-width: 480px; margin: 0 auto var(--space-6); line-height: 1.6;
+}
+.thankyou-failed-actions { display: flex; justify-content: center; gap: var(--space-3); }
+
+@media (max-width: 900px) {
+  .thankyou-grid { grid-template-columns: 1fr; }
+  .thankyou-meta-strip { grid-template-columns: 1fr 1fr; }
+  .thankyou-meta-item { border-bottom: 1px solid var(--clr-border); }
+}
+@media (max-width: 540px) {
+  .thankyou-meta-strip { grid-template-columns: 1fr; }
+  .thankyou-hero-b { padding: var(--space-8) var(--space-6); }
+  .thankyou-item { grid-template-columns: 48px 1fr auto; }
+}
 
 /* ════════════════════════════════════
    HEADER — B warm paper treatment
